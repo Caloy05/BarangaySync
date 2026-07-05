@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resident Registry - BarangaySync Admin Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <header class="top-nav">
+            <div class="nav-left">
+                <button id="toggle-btn" class="toggle-btn"><i class="fas fa-bars"></i></button>
+                <div class="logo-container">
+                    <img src="../img/pamplonaLOGO.jpg" alt="Logo" class="logo">
+                </div>
+            </div>
+
+            <div class="search-section">
+                <div class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" placeholder="Search residents...">
+                    <i class="fas fa-filter filter-icon" style="color: #666; cursor: pointer; margin-left: 10px;"></i>
+                </div>
+            </div>
+
+            <div class="user-section">
+                <div class="user-info">
+                    <div class="user-text">
+                        <span class="user-name">Maria Santos</span>
+                        <span class="user-role">Secretary</span>
+                    </div>
+                    <img src="../img/pamplonaLOGO.jpg" alt="Admin Profile" class="profile-pic">
+                </div>
+                <a href="../login/signin.html" class="icon-btn logout-btn" title="Logout"><i class="fas fa-sign-out-alt"></i></a>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <aside class="sidebar" id="sidebar">
+                <nav class="nav-links">
+                    <a href="admin.html" class="nav-item" title="Dashboard"><i class="fas fa-home"></i><span class="nav-label">Dashboard</span></a>
+                    <a href="admin_request_queue.html" class="nav-item" title="Request Queue"><i class="fas fa-inbox"></i><span class="nav-label">Request Queue</span></a>
+                    <a href="admin_residents.html" class="nav-item active" title="Resident Registry"><i class="fas fa-users"></i><span class="nav-label">Resident Registry</span></a>
+                    <a href="admin_documents.html" class="nav-item" title="Document Types"><i class="fas fa-file-alt"></i><span class="nav-label">Document Types</span></a>
+                    <a href="admin_forecast.html" class="nav-item" title="Resource Forecast"><i class="fas fa-chart-line"></i><span class="nav-label">Resource Forecast</span></a>
+                </nav>
+            </aside>
+
+            <main class="content-area">
+                <div class="dashboard-header">
+                    <h1>Resident Registry</h1>
+                    <p class="text-muted">Manage barangay residents and their information</p>
+                </div>
+
+                <div class="dashboard-container">
+                    <div class="admin-update-card">
+                        <div class="update-card-header">
+                            <div>
+                                <p class="update-kicker">Resident registry</p>
+                                <h3>Resident management system</h3>
+                            </div>
+                            <span class="update-badge">Live Sync</span>
+                        </div>
+                        <div class="update-card-body">
+                            <p id="resident-update-message">Resident registry loaded. Monitor changes below.</p>
+                            <div class="update-stats">
+                                <span id="resident-active">Active: 5</span>
+                                <span id="resident-inactive">Inactive: 0</span>
+                                <span id="resident-updates">Last Updated: Just now</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filters & Actions Row -->
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" placeholder="Search by name...">
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select">
+                                <option selected>All Barangays</option>
+                                <option value="1">Pamplona Uno</option>
+                                <option value="2">Pamplona Dos</option>
+                                <option value="3">Pamplona Tres</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select">
+                                <option selected>All Status</option>
+                                <option value="1">Active</option>
+                                <option value="2">Inactive</option>
+                                <option value="3">Moved Out</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-success w-100" disabled title="Form submission requires backend server"><i class="fas fa-plus"></i> Add Resident</button>
+                        </div>
+                    </div>
+
+                    <!-- Residents Table -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card table-card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0"><i class="fas fa-users"></i> Registered Residents</h5>
+                                    <button class="btn btn-sm btn-primary"><i class="fas fa-download"></i> Export</button>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover" id="residentsTable">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>ID #</th>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Phone</th>
+                                                    <th>Address</th>
+                                                    <th>Status</th>
+                                                    <th>Registered Date</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>RES-001</strong></td>
+                                                    <td>Roberto Dela Cruz</td>
+                                                    <td>robert@email.com</td>
+                                                    <td>09123456789</td>
+                                                    <td>Brgy. Pamplona Tres</td>
+                                                    <td><span class="badge bg-success">Active</span></td>
+                                                    <td>2026-01-15</td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-info" title="View"><i class="fas fa-eye"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>RES-002</strong></td>
+                                                    <td>Maria Gonzales</td>
+                                                    <td>maria@email.com</td>
+                                                    <td>09198765432</td>
+                                                    <td>Brgy. Pamplona Tres</td>
+                                                    <td><span class="badge bg-success">Active</span></td>
+                                                    <td>2026-02-20</td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-info" title="View"><i class="fas fa-eye"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>RES-003</strong></td>
+                                                    <td>Juan Reyes</td>
+                                                    <td>juan@email.com</td>
+                                                    <td>09111222333</td>
+                                                    <td>Brgy. Pamplona Tres</td>
+                                                    <td><span class="badge bg-success">Active</span></td>
+                                                    <td>2026-03-10</td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-info" title="View"><i class="fas fa-eye"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>RES-004</strong></td>
+                                                    <td>Francisca Lopez</td>
+                                                    <td>francisca@email.com</td>
+                                                    <td>09144555666</td>
+                                                    <td>Brgy. Pamplona Dos</td>
+                                                    <td><span class="badge bg-success">Active</span></td>
+                                                    <td>2025-12-05</td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-info" title="View"><i class="fas fa-eye"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>RES-005</strong></td>
+                                                    <td>Rosa Fernandez</td>
+                                                    <td>rosa@email.com</td>
+                                                    <td>09177888999</td>
+                                                    <td>Brgy. Pamplona Tres</td>
+                                                    <td><span class="badge bg-success">Active</span></td>
+                                                    <td>2026-04-01</td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-info" title="View"><i class="fas fa-eye"></i></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-muted d-flex justify-content-between align-items-center">
+                                    <small>Showing 5 of 234 residents</small>
+                                    <nav>
+                                        <ul class="pagination mb-0 pagination-sm">
+                                            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sidebar toggle
+        document.getElementById('toggle-btn').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('collapsed');
+        });
+    </script>
+</body>
+</html>

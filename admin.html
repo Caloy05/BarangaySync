@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BarangaySync Admin Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <header class="top-nav">
+            <div class="nav-left">
+                <button id="toggle-btn" class="toggle-btn"><i class="fas fa-bars"></i></button>
+                <div class="logo-container">
+                    <img src="../img/pamplonaLOGO.jpg" alt="BarangaySync Logo" class="logo">
+                </div>
+            </div>
+
+            <div class="search-section">
+                <div class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" placeholder="Search...">
+                    <i class="fas fa-filter filter-icon" style="color: #666; cursor: pointer; margin-left: 10px;"></i>
+                </div>
+            </div>
+
+            <div class="user-section">
+                <div class="user-info">
+                    <div class="user-text">
+                        <span class="user-name">Maria Santos</span>
+                        <span class="user-role">Secretary</span>
+                    </div>
+                    <img src="../img/pamplonaLOGO.jpg" alt="Admin Profile" class="profile-pic">
+                </div>
+                <a href="../login/signin.html" class="icon-btn logout-btn" title="Logout"><i class="fas fa-sign-out-alt"></i></a>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <aside class="sidebar" id="sidebar">
+                <nav class="nav-links">
+                    <a href="admin.html" class="nav-item active" title="Dashboard"><i class="fas fa-home"></i><span class="nav-label">Dashboard</span></a>
+                    <a href="admin_request_queue.html" class="nav-item" title="Request Queue"><i class="fas fa-inbox"></i><span class="nav-label">Request Queue</span></a>
+                    <a href="admin_residents.html" class="nav-item" title="Resident Registry"><i class="fas fa-users"></i><span class="nav-label">Resident Registry</span></a>
+                    <a href="admin_documents.html" class="nav-item" title="Document Types"><i class="fas fa-file-alt"></i><span class="nav-label">Document Types</span></a>
+                    <a href="admin_forecast.html" class="nav-item" title="Resource Forecast"><i class="fas fa-chart-line"></i><span class="nav-label">Resource Forecast</span></a>
+                </nav>
+            </aside>
+
+            <main class="content-area">
+                <div class="dashboard-header">
+                    <h1>Welcome, Secretary</h1>
+                    <p style="color: #666; font-size: 14px;">BarangaySync - Smart Services Platform</p>
+                </div>
+
+                <div class="dashboard-container">
+                    <div class="admin-update-card">
+                        <div class="update-card-header">
+                            <div>
+                                <p class="update-kicker">Admin activity</p>
+                                <h3>Static update center</h3>
+                            </div>
+                            <span class="update-badge">Live demo • static</span>
+                        </div>
+                        <div class="update-card-body">
+                            <p id="dashboard-update-message">No admin action recorded yet. Review or process a request to update the board.</p>
+                            <div class="update-stats">
+                                <span id="dashboard-pending">Pending: 6</span>
+                                <span id="dashboard-approved">Approved: 0</span>
+                                <span id="dashboard-rejected">Rejected: 0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resource Forecast Widget -->
+                    <div class="row mb-4">
+                        <div class="col-lg-5">
+                            <div class="card forecast-card">
+                                <div class="card-body">
+                                    <h5 class="card-title"><i class="fas fa-brain"></i> Daily Forecast</h5>
+                                    <div class="forecast-content">
+                                        <p class="forecast-text"><strong>AI Insight:</strong> Expect High Walk-in Traffic at 10:00 AM from Senior Citizens (Cluster 2) requesting Medical Stubs.</p>
+                                        <div class="forecast-badge">
+                                            <span class="badge bg-info"><i class="fas fa-users"></i> Cluster 2 - Seniors</span>
+                                        </div>
+                                        <div class="forecast-time mt-2">
+                                            <small class="text-muted">Peak Time: 10:00 AM - 11:30 AM</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Stats -->
+                        <div class="col-lg-7">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <div class="stat-mini-card">
+                                        <div class="stat-number text-danger">12</div>
+                                        <div class="stat-label">High Priority</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="stat-mini-card">
+                                        <div class="stat-number text-warning">8</div>
+                                        <div class="stat-label">Flagged Items</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="stat-mini-card">
+                                        <div class="stat-number text-secondary">24</div>
+                                        <div class="stat-label">Pending Review</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Request Queue Table -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card table-card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0"><i class="fas fa-list"></i> Document Request Queue</h5>
+                                    <button class="btn btn-sm btn-primary"><i class="fas fa-download"></i> Export</button>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Tracking #</th>
+                                                    <th>Resident Name</th>
+                                                    <th>Document Requested</th>
+                                                    <th>Purpose</th>
+                                                    <th>Smart Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Row 1: High Priority (Medical Emergency) -->
+                                                <tr>
+                                                    <td class="tracking-num"><strong>REQ-2026-0847</strong></td>
+                                                    <td>Roberto Dela Cruz</td>
+                                                    <td>Medical Stub</td>
+                                                    <td>Medical Emergency</td>
+                                                    <td>
+                                                        <span class="badge bg-danger"><i class="fas fa-exclamation-circle"></i> High Priority Queue</span>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-info" title="Review"><i class="fas fa-eye"></i> Review</button>
+                                                        <button class="btn btn-sm btn-success" title="Approve"><i class="fas fa-check"></i> Approve</button>
+                                                        <button class="btn btn-sm btn-danger" title="Reject"><i class="fas fa-times"></i> Reject</button>
+                                                    </td>
+                                                </tr>
+
+                                                <!-- Row 2: Flagged (High Frequency) -->
+                                                <tr>
+                                                    <td class="tracking-num"><strong>REQ-2026-0846</strong></td>
+                                                    <td>Maria Gonzales</td>
+                                                    <td>Barangay Clearance</td>
+                                                    <td>Standard</td>
+                                                    <td>
+                                                        <span class="badge bg-warning text-dark"><i class="fas fa-flag"></i> Flagged: High Frequency</span>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-info" title="Review"><i class="fas fa-eye"></i> Review</button>
+                                                        <button class="btn btn-sm btn-success" title="Approve"><i class="fas fa-check"></i> Approve</button>
+                                                        <button class="btn btn-sm btn-danger" title="Reject"><i class="fas fa-times"></i> Reject</button>
+                                                    </td>
+                                                </tr>
+
+                                                <!-- Row 3: Normal (Employment) -->
+                                                <tr>
+                                                    <td class="tracking-num"><strong>REQ-2026-0845</strong></td>
+                                                    <td>Juan Reyes</td>
+                                                    <td>Residency Certificate</td>
+                                                    <td>Employment</td>
+                                                    <td>
+                                                        <span class="badge bg-secondary"><i class="fas fa-clock"></i> Pending Review</span>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-info" title="Review"><i class="fas fa-eye"></i> Review</button>
+                                                        <button class="btn btn-sm btn-success" title="Approve"><i class="fas fa-check"></i> Approve</button>
+                                                        <button class="btn btn-sm btn-danger" title="Reject"><i class="fas fa-times"></i> Reject</button>
+                                                    </td>
+                                                </tr>
+
+                                                <!-- Additional Mock Rows -->
+                                                <tr>
+                                                    <td class="tracking-num"><strong>REQ-2026-0844</strong></td>
+                                                    <td>Francisca Lopez</td>
+                                                    <td>Business Permit</td>
+                                                    <td>Business Registration</td>
+                                                    <td>
+                                                        <span class="badge bg-secondary"><i class="fas fa-clock"></i> Pending Review</span>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-info" title="Review"><i class="fas fa-eye"></i> Review</button>
+                                                        <button class="btn btn-sm btn-success" title="Approve"><i class="fas fa-check"></i> Approve</button>
+                                                        <button class="btn btn-sm btn-danger" title="Reject"><i class="fas fa-times"></i> Reject</button>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="tracking-num"><strong>REQ-2026-0843</strong></td>
+                                                    <td>Carlos Medina</td>
+                                                    <td>Indigency Certificate</td>
+                                                    <td>Social Assistance</td>
+                                                    <td>
+                                                        <span class="badge bg-info"><i class="fas fa-check-circle"></i> Pending Review</span>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-info" title="Review"><i class="fas fa-eye"></i> Review</button>
+                                                        <button class="btn btn-sm btn-success" title="Approve"><i class="fas fa-check"></i> Approve</button>
+                                                        <button class="btn btn-sm btn-danger" title="Reject"><i class="fas fa-times"></i> Reject</button>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="tracking-num"><strong>REQ-2026-0842</strong></td>
+                                                    <td>Rosa Fernandez</td>
+                                                    <td>Medical Stub</td>
+                                                    <td>Medical Emergency</td>
+                                                    <td>
+                                                        <span class="badge bg-danger"><i class="fas fa-exclamation-circle"></i> High Priority Queue</span>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-info" title="Review"><i class="fas fa-eye"></i> Review</button>
+                                                        <button class="btn btn-sm btn-success" title="Approve"><i class="fas fa-check"></i> Approve</button>
+                                                        <button class="btn btn-sm btn-danger" title="Reject"><i class="fas fa-times"></i> Reject</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-muted d-flex justify-content-between align-items-center">
+                                    <small>Showing 6 of 44 requests</small>
+                                    <nav>
+                                        <ul class="pagination mb-0 pagination-sm">
+                                            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('toggle-btn').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('collapsed');
+        });
+
+        const dashboardUpdateMessage = document.getElementById('dashboard-update-message');
+        const dashboardPending = document.getElementById('dashboard-pending');
+        const dashboardApproved = document.getElementById('dashboard-approved');
+        const dashboardRejected = document.getElementById('dashboard-rejected');
+
+        let dashboardPendingCount = 6;
+        let dashboardApprovedCount = 0;
+        let dashboardRejectedCount = 0;
+
+        function refreshDashboardSummary() {
+            dashboardPending.textContent = `Pending: ${dashboardPendingCount}`;
+            dashboardApproved.textContent = `Approved: ${dashboardApprovedCount}`;
+            dashboardRejected.textContent = `Rejected: ${dashboardRejectedCount}`;
+        }
+
+        document.querySelectorAll('table tbody tr .btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const row = this.closest('tr');
+                const tracking = row.querySelector('.tracking-num').textContent.trim();
+                const label = this.textContent.trim().toLowerCase();
+
+                if (label.includes('approve')) {
+                    dashboardPendingCount = Math.max(0, dashboardPendingCount - 1);
+                    dashboardApprovedCount += 1;
+                    dashboardUpdateMessage.textContent = `Approved ${tracking} and marked as processed in the static admin board.`;
+                } else if (label.includes('reject')) {
+                    dashboardPendingCount = Math.max(0, dashboardPendingCount - 1);
+                    dashboardRejectedCount += 1;
+                    dashboardUpdateMessage.textContent = `Rejected ${tracking} and added to the follow-up queue.`;
+                } else if (label.includes('review')) {
+                    dashboardUpdateMessage.textContent = `Reviewed ${tracking}. Waiting for the next admin action.`;
+                }
+
+                refreshDashboardSummary();
+                row.querySelectorAll('.btn').forEach(btn => btn.disabled = true);
+            });
+        });
+
+        refreshDashboardSummary();
+    </script>
+</body>
+</html>
